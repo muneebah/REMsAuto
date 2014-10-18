@@ -9,6 +9,8 @@ package com.mycompany.carshop.test.repository;
 import com.mycompany.carshop.domain.Accessories;
 import com.mycompany.carshop.domain.Automobile;
 import com.mycompany.carshop.domain.Colour;
+import com.mycompany.carshop.domain.MarketingInformation;
+import com.mycompany.carshop.domain.Review;
 import com.mycompany.carshop.repository.AutomobileRepository;
 import com.mycompany.carshop.test.ConnectionConfigTest;
 import java.math.BigDecimal;
@@ -50,6 +52,14 @@ public class AutomobileRepositoryTest {
         accessoty.setAccessoryName("Seats Cover");
         accessoty.setUnitPrice(new BigDecimal(150.00));
         
+         Review review = new Review();
+         review.setDescription("Great car, love it");
+         review.setRating(10);
+         
+         MarketingInformation marketingInformation = new MarketingInformation();
+         marketingInformation.setStatusOfInformation("COMPLETE");         
+         marketingInformation.setReview(review);
+        
         Automobile car = new Automobile.Builder("558 465 2CA")
                                     .autoName("BMW M3")
                                     .manufacturer("BMW")
@@ -59,6 +69,7 @@ public class AutomobileRepositoryTest {
                                     .inventory(30)
                                     .accessory(accessoty)
                                     .colour(colour)
+                                    .marketingInformation(marketingInformation)
                                     .build();
      
      automobileRepository.save(car);

@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author 210188200
+ * @author Mhumhu
  */
 @Embeddable
 public class Accessories implements Serializable{

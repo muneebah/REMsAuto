@@ -10,6 +10,8 @@ import com.mycompany.carshop.domain.Accessories;
 import com.mycompany.carshop.domain.Automobile;
 import com.mycompany.carshop.domain.AutomobileType;
 import com.mycompany.carshop.domain.Colour;
+import com.mycompany.carshop.domain.MarketingInformation;
+import com.mycompany.carshop.domain.Review;
 import com.mycompany.carshop.repository.AutomobileRepository;
 import com.mycompany.carshop.repository.AutomobileTypeRepository;
 import com.mycompany.carshop.test.ConnectionConfigTest;
@@ -55,6 +57,14 @@ public class AutomobileTypeRepositoryTest {
         accessoty.setAccessoryName("Seats Cover");
         accessoty.setUnitPrice(new BigDecimal(150.00));
         
+        Review review = new Review();
+         review.setDescription("Good car");
+         review.setRating(5);
+         
+         MarketingInformation marketingInformation = new MarketingInformation();
+         marketingInformation.setStatusOfInformation("PENDING");         
+         marketingInformation.setReview(review);
+         
         Automobile car = new Automobile.Builder("558 465 2CA")
                                     .autoName("BMW M3")
                                     .manufacturer("BMW")
@@ -64,11 +74,12 @@ public class AutomobileTypeRepositoryTest {
                                     .inventory(30)
                                     .accessory(accessoty)
                                     .colour(colour)
+                                    .marketingInformation(marketingInformation)
                                     .build();
      
      automobileRepository.save(car);
      
-        Automobile car1 = new Automobile.Builder("558 465 2CB")
+      Automobile car1 = new Automobile.Builder("558 465 2CB")
                                     .autoName("BMW M3i")
                                     .manufacturer("BMW")
                                     .modelYear("2014")
@@ -83,7 +94,7 @@ public class AutomobileTypeRepositoryTest {
      //id = car.getId();
    // Assert.assertNotNull(car);
      
-     List<Automobile> cars = new ArrayList();
+     List<Automobile> cars = new ArrayList<>();
      cars.add(car);
      cars.add(car1);
      
@@ -122,7 +133,7 @@ public class AutomobileTypeRepositoryTest {
         
         automobileRepository.save(updateCar);
         
-        List<Automobile> cars = new ArrayList();
+        List<Automobile> cars = new ArrayList<>();
         cars.add(updateCar);
         
         AutomobileType type = automobileTypeRepository.findOne(id);

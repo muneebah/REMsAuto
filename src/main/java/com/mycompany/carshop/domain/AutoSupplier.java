@@ -9,6 +9,7 @@ package com.mycompany.carshop.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import javax.persistence.OneToMany;
 
 /**
  *
- * @author 210188200
+ * @author Mhumhu
  */
 @Entity
 public class AutoSupplier implements Serializable {
@@ -33,7 +34,7 @@ public class AutoSupplier implements Serializable {
     private String supplierAddress;
     private String supplierEmail;
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "autosupplier_id")
     private List<Automobile> automobiles = new ArrayList<Automobile>();
     

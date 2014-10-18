@@ -6,13 +6,23 @@
 
 package com.mycompany.carshop.test.repository;
 
+import com.mycompany.carshop.domain.CreditCard;
+import com.mycompany.carshop.domain.Customer;
+import com.mycompany.carshop.domain.CustomerAddress;
+import com.mycompany.carshop.domain.CustomerContact;
 import com.mycompany.carshop.domain.CustomerInvoice;
+import com.mycompany.carshop.domain.CustomerName;
+import com.mycompany.carshop.domain.Demographic;
 import com.mycompany.carshop.domain.Order;
 import com.mycompany.carshop.domain.OrderItem;
+import com.mycompany.carshop.repository.CreditCardRepository;
+import com.mycompany.carshop.repository.CustomerAddressRepository;
 import com.mycompany.carshop.repository.CustomerInvoiceRepository;
+import com.mycompany.carshop.repository.CustomerRepository;
 import com.mycompany.carshop.repository.OrderItemRepository;
 import com.mycompany.carshop.repository.OrderRepository;
 import com.mycompany.carshop.test.ConnectionConfigTest;
+import static com.mycompany.carshop.test.repository.CustomerInvoiceTest.ctx;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,8 +44,12 @@ public class OrderRepositoryTest {
     public static ApplicationContext ctx;
     private Long id;
     private OrderRepository orderRepository;
-    private CustomerInvoiceRepository invoiceRepository;
     private OrderItemRepository itemRepository;
+    private CustomerRepository customerRepository;
+      private CreditCardRepository creditCardRepository;
+      private CustomerAddressRepository addressRepository;      
+      private CustomerInvoiceRepository invoiceRepository;
+      
     public OrderRepositoryTest() {
     }
 
@@ -46,18 +60,64 @@ public class OrderRepositoryTest {
     public void createOrder() {
        
         orderRepository = ctx.getBean(OrderRepository.class);
-        invoiceRepository = ctx.getBean(CustomerInvoiceRepository.class);
         itemRepository = ctx.getBean(OrderItemRepository.class);
+        customerRepository = ctx.getBean(CustomerRepository.class);
+        creditCardRepository = ctx.getBean(CreditCardRepository.class);
+        addressRepository = ctx.getBean(CustomerAddressRepository.class);
+        invoiceRepository = ctx.getBean(CustomerInvoiceRepository.class);
         
-        CustomerInvoice invoice = new CustomerInvoice.Builder("205820")
-                                        .invoiceDate(new Date())
-                                        .orderAmount(new BigDecimal(50.00))
-                                        .invoiceStatus("UnPaid")
-                                        .build();
+        CustomerName customerName = new CustomerName();
+        customerName.setFirstName("Rhulani");
+        customerName.setLastName("Baloyi");
         
-        invoiceRepository.save(invoice);
-        //id = invoice.getId();
-        //Assert.assertNotNull(invoice); 
+        CustomerContact contact = new CustomerContact();
+        contact.setCellNumber("0799414940");
+        contact.setPhoneNumber("0215558379");
+        
+        Demographic demo = new Demographic();
+        demo.setDateOfBirth(new Date());
+        demo.setGender("Female");
+        demo.setRace("Black");
+        
+        CustomerAddress address = new CustomerAddress.Builder("21 jump street")
+                                    .postalAddress("7100")
+                                    .build();
+     
+     addressRepository.save(address);
+     //id = address.getId();
+    // Assert.assertNotNull(address);
+     
+     CreditCard creditCard1 = new CreditCard.Builder("98765412308")
+                .balance(new BigDecimal(3000.00))
+                .expiryDate(new Date())
+                .nameOnCreditCard("Messi10")
+                .build();
+        
+        creditCardRepository.save(creditCard1);
+        //id = creditCard.getId();
+        //Assert.assertNotNull(creditCard);
+        
+        CreditCard creditCard2 = new CreditCard.Builder("789654123056")
+                .balance(new BigDecimal(4000.00))
+                .expiryDate(new Date())
+                .nameOnCreditCard("Neymar11")
+                .build();
+        
+        creditCardRepository.save(creditCard2);
+        
+        List<CreditCard> creditCards = new ArrayList<CreditCard>();
+        creditCards.add(creditCard1);
+        creditCards.add(creditCard2);
+        
+        Customer customer = new Customer.Builder("100011")
+                .customerName(customerName)
+                .customerContact(contact)
+                .demographic(demo)
+                .customerAddress(address)
+                .creditCard(creditCards)
+                .build();
+        customerRepository.save(customer);
+       
         
         OrderItem item1 = new OrderItem.Builder(1)
                                 .build();
@@ -69,14 +129,24 @@ public class OrderRepositoryTest {
         
           itemRepository.save(item2);
           
-          List<OrderItem> items = new ArrayList();
+          List<OrderItem> items = new ArrayList<>();
           items.add(item1);
           items.add(item2);
           
+                  
+        CustomerInvoice invoice = new CustomerInvoice.Builder("20583")
+                                        .invoiceDate(new Date())
+                                        .orderAmount(new BigDecimal(150.00))
+                                        .invoiceStatus("Paid")
+                                        .build();
+        
+        invoiceRepository.save(invoice);
+          
         Order order = new Order.Builder(425)
+                .customer(customer)
                 .orderDate(new Date())
-                .customerInvoice(invoice)
                 .item(items)
+                .customerInvoice(invoice)
                 .build();
    
         orderRepository.save(order);

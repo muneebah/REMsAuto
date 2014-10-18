@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author 210188200
+ * @author Mhumhu
  */
 @Entity
 public class CreditCard implements Serializable {
@@ -114,6 +114,10 @@ public class CreditCard implements Serializable {
         this.id = id;
     }
 
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

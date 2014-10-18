@@ -93,7 +93,7 @@ public class CustomerRepositoryTest {
         creditCards.add(creditCard1);
         creditCards.add(creditCard2);
         
-        Customer customer = new Customer.Builder("512354")
+        Customer customer = new Customer.Builder("10000")
                 .customerName(customerName)
                 .customerContact(contact)
                 .demographic(demo)
@@ -110,7 +110,7 @@ public class CustomerRepositoryTest {
     public void readCustomer() {
         customerRepository = ctx.getBean(CustomerRepository.class);
         Customer customer = customerRepository.findOne(id);
-        Assert.assertEquals(customer.getCustomerNumber(), "512354");
+        Assert.assertEquals(customer.getCustomerNumber(), "10000");
     }
 
     @Test(dependsOnMethods = "readCustomer", enabled = true)
@@ -123,7 +123,7 @@ public class CustomerRepositoryTest {
         
         
         Customer customer = customerRepository.findOne(id);
-        Customer updateCustomer = new Customer.Builder("512354")
+        Customer updateCustomer = new Customer.Builder("10000")
                 .customer(customer)
                 .customerName(customerName)
                 .build();

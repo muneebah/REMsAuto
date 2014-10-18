@@ -15,7 +15,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author 210188200
+ * @author Mhumhu
  */
 @Entity
 public class CustomerAddress implements Serializable {

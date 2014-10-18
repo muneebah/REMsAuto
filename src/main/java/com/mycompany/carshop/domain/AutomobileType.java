@@ -9,8 +9,8 @@ package com.mycompany.carshop.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
 
 /**
  *
- * @author 210188200
+ * @author Mhumhu
  */
 @Entity
 public class AutomobileType implements Serializable {
@@ -29,7 +29,7 @@ public class AutomobileType implements Serializable {
     private Long id;
     private String autoType;
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "automobiletype_id")
     private List<Automobile> automobiles = new ArrayList<Automobile>();
     
@@ -91,6 +91,10 @@ public class AutomobileType implements Serializable {
         this.id = id;
     }
 
+    public void setAutomobiles(List<Automobile> automobiles) {
+        this.automobiles = automobiles;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

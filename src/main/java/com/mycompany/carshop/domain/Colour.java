@@ -11,7 +11,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author 210188200
+ * @author Mhumhu
  */
 @Embeddable
 public class Colour implements Serializable{

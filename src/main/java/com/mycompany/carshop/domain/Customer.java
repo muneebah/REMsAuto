@@ -1,13 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.mycompany.carshop.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,7 +19,7 @@ import javax.persistence.OneToOne;
 
 /**
  *
- * @author 210188200
+ * @author Elton
  */
 @Entity
 public class Customer implements Serializable {
@@ -37,10 +36,10 @@ public class Customer implements Serializable {
     private CustomerContact customerContact;
     @Embedded
     private Demographic demographic;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "creditcard_id")
     private List<CreditCard> creditCard;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
     private List<Order> order;
 

@@ -1,9 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.mycompany.carshop.domain;
 
 import java.io.Serializable;
@@ -23,7 +21,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author 210188200
+ * @author Elton
  */
 @Entity
 public class Order implements Serializable {
@@ -35,14 +33,14 @@ public class Order implements Serializable {
     private int orderNumber;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date orderDate;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "orderitem_id")
     private List<OrderItem> item;
     @OneToOne
     private Customer customer;
     @OneToOne
     private CustomerInvoice customerInvoice;
-    
+       
     public Order(){}
     
     private Order(Builder builder)
@@ -53,6 +51,7 @@ public class Order implements Serializable {
         item = builder.item;
         customer = builder.customer;
         customerInvoice = builder.customerInvoice;
+       
     }
     public  static class Builder
     {
@@ -63,7 +62,7 @@ public class Order implements Serializable {
         List<OrderItem> item;
         Customer customer;
         CustomerInvoice customerInvoice;
-        
+                
         public Builder(int orderNumber)
         {
             this.orderNumber = orderNumber;
@@ -83,7 +82,7 @@ public class Order implements Serializable {
             item = value;
             return this;
         }
-         public Builder customer(Customer value)
+        public Builder customer(Customer value)
         {
             customer = value;
             return this;
@@ -93,6 +92,7 @@ public class Order implements Serializable {
             customerInvoice = value;
             return this;
         }
+        
         public Builder order(Order order)
         {
             id = order.getId();
@@ -133,10 +133,30 @@ public class Order implements Serializable {
         return customer;
     }
 
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public void setItem(List<OrderItem> item) {
+        this.item = item;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public CustomerInvoice getCustomerInvoice() {
         return customerInvoice;
     }
-    
+
+    public void setCustomerInvoice(CustomerInvoice customerInvoice) {
+        this.customerInvoice = customerInvoice;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

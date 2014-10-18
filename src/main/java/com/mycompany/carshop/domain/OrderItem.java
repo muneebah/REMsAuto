@@ -1,9 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.mycompany.carshop.domain;
 
 import java.io.Serializable;
@@ -15,7 +13,7 @@ import javax.persistence.OneToOne;
 
 /**
  *
- * @author 210188200
+ * @author Elton
  */
 @Entity
 public class OrderItem implements Serializable {
@@ -79,7 +77,7 @@ public class OrderItem implements Serializable {
     public Automobile getAutomobile() {
         return automobile;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

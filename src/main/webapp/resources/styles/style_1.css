@@ -1,0 +1,15 @@
+/* 
+    Document   : style
+    Created on : May 3, 2013, 5:33:43 PM
+    Author     : boniface
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+.header{
+    color: red;
+}
+

@@ -8,7 +8,7 @@ package com.mycompany.carshop;
 
 /**
  *
- * @author Elton
+ * @author hashcode
  */
 public interface Application {
     

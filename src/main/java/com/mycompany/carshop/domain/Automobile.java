@@ -8,15 +8,18 @@ package com.mycompany.carshop.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
- * @author 210188200
+ * @author Mhumhu
  */
 @Entity
 public class Automobile implements Serializable {
@@ -36,6 +39,10 @@ public class Automobile implements Serializable {
     private Colour colour;
     @Embedded
     private Accessories accessory;
+    @ManyToOne
+    private AutomobileType autotypes;
+    @OneToOne(orphanRemoval=true,cascade= CascadeType.ALL)
+    private MarketingInformation marketingInformation;
     
     public Automobile(){}
     private Automobile(Builder builder)
@@ -47,9 +54,11 @@ public class Automobile implements Serializable {
         modelYear = builder.modelYear;   
         unitPrice = builder.unitPrice;
         inventory = builder.inventory;
+         marketingInformation = builder.marketingInformation;
         sales = builder.sales;
         accessory = builder.accessory;
         colour = builder.colour;
+        autotypes = builder.autotypes;
     }
     public static class Builder
     {
@@ -63,6 +72,8 @@ public class Automobile implements Serializable {
         private int sales;
         private Accessories accessory;
         private Colour colour;
+        AutomobileType autotypes;
+        MarketingInformation marketingInformation;
         
         public Builder(String automobileNumber)
         {
@@ -112,9 +123,19 @@ public class Automobile implements Serializable {
             this.colour = value;
             return this;
         }
+        public Builder autotypes(AutomobileType value)
+        {
+            this.autotypes = value;
+            return this;
+        }
+        public Builder marketingInformation(MarketingInformation value)
+        {
+            marketingInformation = value;
+            return this;
+        }
         public Builder automobile(Automobile car) {
             id = car.getId();
-            this.automobileNumber = car.getAutomoleNumber();
+            this.automobileNumber = car.getAutomobileNumber();
             this.autoName = car.getAutoName();
             this.manufacturer = car.getManufacturer();
             this.modelYear = car.getModelYear();
@@ -123,6 +144,8 @@ public class Automobile implements Serializable {
             this.unitPrice = car.getUnitPrice();
             this.accessory = car.getAccessory();
             this.colour = car.getColour();
+            this.autotypes = car.getAutotypes();
+            marketingInformation = car.getMarketingInformation();
             return this;
         }
         
@@ -136,7 +159,7 @@ public class Automobile implements Serializable {
         return id;
     }
 
-    public String getAutomoleNumber() {
+    public String getAutomobileNumber() {
         return automobileNumber;
     }
 
@@ -171,11 +194,30 @@ public class Automobile implements Serializable {
     public Accessories getAccessory() {
         return accessory;
     }
+    public AutomobileType getAutotypes() {
+        return autotypes;
+    }
     
     public void setId(Long id) {
         this.id = id;
     }
 
+    public void setSales(int sales) {
+        this.sales = sales;
+    }
+
+    public void setInventory(int inventory) {
+        this.inventory = inventory;
+    }
+
+    public MarketingInformation getMarketingInformation() {
+        return marketingInformation;
+    }
+
+    public void setMarketingInformation(MarketingInformation marketingInformation) {
+        this.marketingInformation = marketingInformation;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
