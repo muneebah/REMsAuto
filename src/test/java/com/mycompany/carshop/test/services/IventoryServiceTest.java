@@ -8,7 +8,7 @@ package com.mycompany.carshop.test.services;
 
 import com.mycompany.carshop.domain.Automobile;
 import com.mycompany.carshop.domain.AutomobileType;
-import com.mycompany.carshop.domain.Order;
+import com.mycompany.carshop.domain.Orders;
 import com.mycompany.carshop.repository.AutomobileTypeRepository;
 import com.mycompany.carshop.repository.OrderRepository;
 import com.mycompany.carshop.services.InventoryService;
@@ -40,7 +40,7 @@ public class IventoryServiceTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test
+    @Test(enabled = false)
     public void testInventorService() {
     
         iventoryService = ctx.getBean(InventoryService.class);
@@ -53,13 +53,12 @@ public class IventoryServiceTest {
         Automobile automobile = automobiles.get(0);
         int inventory = automobile.getInventory();
 
-        List<Order> orders = orderRepository.findAll();
+        List<Orders> orders = orderRepository.findAll();
         
-        for(Order order : orders) {
+        for(Orders order : orders) {
             iventoryService.processSale(order.getId());
         }
         
-        // Get updated album
         automobileTypes = automobileTypeRepository.findAll();
         autotype = automobileTypes.get(0);
         automobiles = autotype.getAutomobiles();

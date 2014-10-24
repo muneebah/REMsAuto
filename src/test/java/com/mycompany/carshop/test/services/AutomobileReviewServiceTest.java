@@ -34,7 +34,7 @@ public class AutomobileReviewServiceTest {
     
     public AutomobileReviewServiceTest() {
     }
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void testRatingsApprovalService() {
         
         automobileTypeRepository  = ctx.getBean(AutomobileTypeRepository.class);
@@ -50,7 +50,7 @@ public class AutomobileReviewServiceTest {
         Assert.assertEquals(4, rating);
     }
     
-     @Test(enabled = true)
+     @Test(enabled = false)
     public void testCustomerReviewApprovalService() {
         
         automobileTypeRepository  = ctx.getBean(AutomobileTypeRepository.class);

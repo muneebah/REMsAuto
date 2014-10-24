@@ -9,7 +9,7 @@ package com.mycompany.carshop.services.impl;
 import com.mycompany.carshop.domain.CreditCard;
 import com.mycompany.carshop.domain.Customer;
 import com.mycompany.carshop.domain.CustomerInvoice;
-import com.mycompany.carshop.domain.Order;
+import com.mycompany.carshop.domain.Orders;
 import com.mycompany.carshop.repository.CreditCardRepository;
 import com.mycompany.carshop.repository.CustomerInvoiceRepository;
 import com.mycompany.carshop.repository.OrderRepository;
@@ -49,8 +49,8 @@ public class ProcessInvoicesServiceImpl implements ProcessInvoicesService{
         CustomerInvoice invoice = customerInvoiceService.findOne(invoiceID);
         
         if(invoice.getInvoiceStatus().equals("UNPAID")) {
-            List<Order> orders = orderService.findAll();
-            for(Order order : orders) {
+            List<Orders> orders = orderService.findAll();
+            for(Orders order : orders) {
                 if(order.getCustomerInvoice().equals(invoice)) {
                     Customer customer = order.getCustomer();
                     List<CreditCard> creditCards = customer.getCreditCard();

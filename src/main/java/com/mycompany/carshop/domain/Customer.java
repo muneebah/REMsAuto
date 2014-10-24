@@ -1,25 +1,27 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.mycompany.carshop.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
- * @author Elton
+ * @author Mhumhu
  */
 @Entity
 public class Customer implements Serializable {
@@ -30,18 +32,20 @@ public class Customer implements Serializable {
     private String customerNumber;
     @Embedded
     private CustomerName customerName;
-    @OneToOne
+    @Embedded
     private CustomerAddress customerAddress;
     @Embedded
     private CustomerContact customerContact;
     @Embedded
     private Demographic demographic;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "creditcard_id")
     private List<CreditCard> creditCard;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
-    private List<Order> order;
+    private List<Orders> order;
 
     public Customer(){
     }
@@ -65,7 +69,7 @@ public class Customer implements Serializable {
         private CustomerContact customerContact;
         private Demographic demographic;
         List<CreditCard> creditCard;
-        List<Order> order;
+        List<Orders> order;
 
         public Builder(String customerNumber) {
             this.customerNumber = customerNumber;
@@ -100,7 +104,7 @@ public class Customer implements Serializable {
             creditCard = value;
             return this;
         }
-        public Builder order(List<Order> value)
+        public Builder order(List<Orders> value)
         {
             order = value;
             return this;
@@ -121,6 +125,38 @@ public class Customer implements Serializable {
             return new Customer(this);
         }
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCustomerNumber(String customerNumber) {
+        this.customerNumber = customerNumber;
+    }
+
+    public void setCustomerName(CustomerName customerName) {
+        this.customerName = customerName;
+    }
+
+    public void setCustomerAddress(CustomerAddress customerAddress) {
+        this.customerAddress = customerAddress;
+    }
+
+    public void setCustomerContact(CustomerContact customerContact) {
+        this.customerContact = customerContact;
+    }
+
+    public void setDemographic(Demographic demographic) {
+        this.demographic = demographic;
+    }
+
+    public void setCreditCard(List<CreditCard> creditCard) {
+        this.creditCard = creditCard;
+    }
+
+    public void setOrder(List<Orders> order) {
+        this.order = order;
+    }
     
     public Long getId() {
         return id;
@@ -130,7 +166,7 @@ public class Customer implements Serializable {
         return creditCard;
     }
 
-    public List<Order> getOrder() {
+    public List<Orders> getOrder() {
         return order;
     }
     
@@ -178,5 +214,6 @@ public class Customer implements Serializable {
     public String toString() {
         return "com.mycompany.carshop.domain.Customer[ id=" + id + " ]";
     }
+    
     
 }

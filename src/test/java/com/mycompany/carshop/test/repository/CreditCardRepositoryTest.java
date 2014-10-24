@@ -6,6 +6,7 @@
 
 package com.mycompany.carshop.test.repository;
 
+import com.mycompany.carshop.app.conf.ConnectionConfig;
 import com.mycompany.carshop.domain.CreditCard;
 import com.mycompany.carshop.repository.CreditCardRepository;
 import com.mycompany.carshop.test.ConnectionConfigTest;
@@ -76,7 +77,7 @@ public class CreditCardRepositoryTest {
 
     }
 
-    @Test(dependsOnMethods = "updateCreditCard", enabled = true)
+    @Test(dependsOnMethods = "updateCreditCard", enabled = false)
     private void deleteCreditCard() {
 
         creditCardRepository = ctx.getBean(CreditCardRepository.class);
@@ -91,7 +92,7 @@ public class CreditCardRepositoryTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-          ctx = (ApplicationContext) new AnnotationConfigApplicationContext(ConnectionConfigTest.class);
+          ctx =  new AnnotationConfigApplicationContext(ConnectionConfig.class);
     }
 
     @AfterClass

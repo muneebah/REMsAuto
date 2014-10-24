@@ -6,7 +6,7 @@
 
 package com.mycompany.carshop.repository;
 
-import com.mycompany.carshop.domain.Order;
+import com.mycompany.carshop.domain.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -14,6 +14,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Elton
  */
 
-public interface OrderRepository extends JpaRepository<Order, Long>{
+public interface OrderRepository extends JpaRepository<Orders, Long>{
     
 }

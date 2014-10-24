@@ -1,9 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.mycompany.carshop.domain;
 
 import java.io.Serializable;
@@ -12,13 +10,13 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Mhumhu
+ * @author Rhulani Baloyi
  */
 @Embeddable
 public class Accessories implements Serializable{
     private String accessoryNumber;
     private String accessoryName;
-    private BigDecimal unitPrice;
+    private BigDecimal price;
 
     public String getAccessoryNumber() {
         return accessoryNumber;
@@ -36,12 +34,12 @@ public class Accessories implements Serializable{
         this.accessoryName = accessoryName;
     }
 
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
     
     

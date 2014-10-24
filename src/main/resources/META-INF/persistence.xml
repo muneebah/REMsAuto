@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="carshopPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="carshopUP" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <non-jta-data-source/>
-    <class>com.mycompany.carshop.domain.Asset</class>
-    <class>com.mycompany.carshop.domain.AutoSupplier</class>
-    <class>com.mycompany.carshop.domain.Automobile</class>
-    <class>com.mycompany.carshop.domain.AutomobileType</class>
-    <class>com.mycompany.carshop.domain.CreditCard</class>
-    <class>com.mycompany.carshop.domain.Customer</class>
-    <class>com.mycompany.carshop.domain.CustomerAddress</class>
-    <class>com.mycompany.carshop.domain.CustomerInvoice</class>
-    <class>com.mycompany.carshop.domain.MarketingInformation</class>
-    <class>com.mycompany.carshop.domain.Order</class>
-    <class>com.mycompany.carshop.domain.OrderItem</class>
-    <class>com.mycompany.carshop.domain.Review</class>
+
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/carshop"/>

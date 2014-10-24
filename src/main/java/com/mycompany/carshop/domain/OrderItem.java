@@ -5,15 +5,12 @@
 package com.mycompany.carshop.domain;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+
 
 /**
  *
- * @author Elton
+ * @author Rhulani Baloyi
  */
 @Entity
 public class OrderItem implements Serializable {
@@ -22,13 +19,15 @@ public class OrderItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int quantity;
+    
     @OneToOne
     private Automobile automobile;
-        
-    public OrderItem(){
+
+   
+   public OrderItem(){
     }
     
-    private OrderItem(OrderItem.Builder builder) {
+    private OrderItem(Builder builder) {
         id = builder.id;
         automobile = builder.automobile;
         quantity = builder.quantity;
@@ -100,7 +99,7 @@ public class OrderItem implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.carshop.domain.OrderLine[ id=" + id + " ]";
+        return "com.mycompany.carshop.domain.OrderItem[ id=" + id + " ]";
     }
     
 }

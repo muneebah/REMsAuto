@@ -23,11 +23,58 @@ public class MarketingInformation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String statusOfInformation;
+    
+   private String statusOfInformation;
     @OneToOne
     private Review review;
     @OneToOne
     private Automobile automobile;
+    
+    public MarketingInformation(){}
+    
+    private MarketingInformation(Builder builder) {
+        id = builder.id;
+        automobile = builder.automobile;
+        statusOfInformation = builder.statusOfInformation;
+        review = builder.review;
+    }
+    
+    public static class Builder{
+        private Long id;
+        Automobile automobile;
+        Review review;
+        private String statusOfInformation;
+           
+        public Builder(String statusOfInformation) {
+            this.statusOfInformation = statusOfInformation;
+           
+        }
+
+        public Builder automobile(Automobile value) {
+            this.automobile = value;
+            return this;
+        }
+        public Builder review(Review value) {
+            this.review = value;
+            return this;
+        }
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+        
+        public Builder MarketingInformation(MarketingInformation market) {
+            this.id = market.getId();
+            this.automobile = market.getAutomobile();
+            this.review = market.getReview();
+            statusOfInformation = market.getStatusOfInformation();
+            return this;
+        }
+        
+        public MarketingInformation build(){
+            return new MarketingInformation(this);
+        }
+    }
 
     public Long getId() {
         return id;
@@ -87,3 +134,4 @@ public class MarketingInformation implements Serializable {
     }
     
 }
+

@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -26,7 +27,7 @@ public class Automobile implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id;    
     private String automobileNumber;
     private String manufacturer;
     private String autoName;    
@@ -39,9 +40,11 @@ public class Automobile implements Serializable {
     private Colour colour;
     @Embedded
     private Accessories accessory;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "automobiletype_id")
     private AutomobileType autotypes;
-    @OneToOne(orphanRemoval=true,cascade= CascadeType.ALL)
+    
+    @OneToOne
     private MarketingInformation marketingInformation;
     
     public Automobile(){}
@@ -244,3 +247,4 @@ public class Automobile implements Serializable {
     }
     
 }
+

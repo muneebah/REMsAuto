@@ -6,17 +6,18 @@
 
 package com.mycompany.carshop.test.services;
 
+import com.mycompany.carshop.domain.AutomobileType;
 import com.mycompany.carshop.domain.Customer;
 import com.mycompany.carshop.domain.CustomerInvoice;
-import com.mycompany.carshop.domain.Order;
+import com.mycompany.carshop.domain.Orders;
 import com.mycompany.carshop.domain.OrderItem;
+import com.mycompany.carshop.repository.AutomobileTypeRepository;
 import com.mycompany.carshop.repository.CustomerInvoiceRepository;
 import com.mycompany.carshop.repository.CustomerRepository;
 import com.mycompany.carshop.repository.OrderItemRepository;
 import com.mycompany.carshop.repository.OrderRepository;
 import com.mycompany.carshop.services.CustomerOrderService;
 import com.mycompany.carshop.test.ConnectionConfigTest;
-import static com.mycompany.carshop.test.repository.OrderRepositoryTest.ctx;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +45,7 @@ public class CustomerOrderServiceTest {
     private CustomerInvoiceRepository customerInvoiceRepo;
     private CustomerRepository customerRepository;
     private OrderItemRepository itemRepository;
-
+     private AutomobileTypeRepository automobileTypeRepository;
     
     public CustomerOrderServiceTest() {
     }
@@ -52,8 +53,9 @@ public class CustomerOrderServiceTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test(enabled = true)
-    public void tsetCustomerOrderService() {
+    @Test(enabled = false)
+    public void testCustomerOrderService() {
+        automobileTypeRepository = ctx.getBean(AutomobileTypeRepository.class);
         orderRepository = ctx.getBean(OrderRepository.class);
         customerOrderService = ctx.getBean(CustomerOrderService.class);
         customerInvoiceRepo = ctx.getBean(CustomerInvoiceRepository.class);
@@ -67,44 +69,28 @@ public class CustomerOrderServiceTest {
         Customer customer = customers.get(0);
         String customerNumber = customer.getCustomerNumber();
         Assert.assertNotNull("Testing CustomerOrderService customer not null",customerNumber);
+        //System.out.println(customerNumber);
         
-        OrderItem item1 = new OrderItem.Builder(1)
-                                .build();
-        
-          itemRepository.save(item1);
-          
-          OrderItem item2 = new OrderItem.Builder(2)
-                                .build();
-        
-          itemRepository.save(item2);
-          
-          List<OrderItem> items = new ArrayList<>();
-          items.add(item1);
-          items.add(item2);
-          
-         Order order = new Order.Builder(425)
+         Orders order = new Orders.Builder(100)
                 .customer(customer)
                 .orderDate(new Date())
-                .item(items)
                 .build();
    
         orderRepository.save(order);
         
-        CustomerInvoice invoice = new CustomerInvoice.Builder("20583")
+        CustomerInvoice invoice = new CustomerInvoice.Builder("12345")
                                         .invoiceDate(new Date())
                                         .order(order)
                                         .orderAmount(new BigDecimal(150.00))
                                         .invoiceStatus("Paid")
                                         .build();
-        
         customerInvoiceRepo.save(invoice);
         
-        // Order an automobile, send the customers's Order ID and the AutomobileType's ID, the vehicle and how many.
         Map<String, String> autoDetails = new HashMap<String, String>();
         autoDetails.put("autoType", "Sedan");
-        autoDetails.put("autoName", "Verso 1.6");
+        autoDetails.put("autoName", "BMW M3");
         customerOrderService.orderAutomobile(order.getId(), autoDetails, 1);
-            
+         Assert.assertNotNull(order);  
         
     }
 

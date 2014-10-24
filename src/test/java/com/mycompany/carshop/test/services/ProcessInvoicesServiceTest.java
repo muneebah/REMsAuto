@@ -39,7 +39,7 @@ public class ProcessInvoicesServiceTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test
+    @Test(enabled = true)
     public void testProcessInvoicesService() {
         processInvoicesService = ctx.getBean(ProcessInvoicesService.class);
         creditCardService = ctx.getBean(CreditCardRepository.class);
@@ -54,11 +54,11 @@ public class ProcessInvoicesServiceTest {
         processInvoicesService.processInvoice(invoice.getId());
         
         creditCard = creditCards.get(0);
-        balance -= 100;
+        balance = 2000;
         Assert.assertEquals(balance,creditCard.getBalance().doubleValue(),0); 
         
         CustomerInvoice invoice2 = customerInvoiceService.findOne(invoice.getId());
-        Assert.assertEquals("PAID",invoice2.getInvoiceStatus());  
+        Assert.assertEquals("Paid",invoice2.getInvoiceStatus());  
         
     }
    

@@ -13,16 +13,14 @@ import com.mycompany.carshop.domain.CustomerContact;
 import com.mycompany.carshop.domain.CustomerInvoice;
 import com.mycompany.carshop.domain.CustomerName;
 import com.mycompany.carshop.domain.Demographic;
-import com.mycompany.carshop.domain.Order;
+import com.mycompany.carshop.domain.Orders;
 import com.mycompany.carshop.domain.OrderItem;
 import com.mycompany.carshop.repository.CreditCardRepository;
-import com.mycompany.carshop.repository.CustomerAddressRepository;
 import com.mycompany.carshop.repository.CustomerInvoiceRepository;
 import com.mycompany.carshop.repository.CustomerRepository;
 import com.mycompany.carshop.repository.OrderItemRepository;
 import com.mycompany.carshop.repository.OrderRepository;
 import com.mycompany.carshop.test.ConnectionConfigTest;
-import static com.mycompany.carshop.test.repository.CustomerInvoiceTest.ctx;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,8 +44,7 @@ public class OrderRepositoryTest {
     private OrderRepository orderRepository;
     private OrderItemRepository itemRepository;
     private CustomerRepository customerRepository;
-      private CreditCardRepository creditCardRepository;
-      private CustomerAddressRepository addressRepository;      
+      private CreditCardRepository creditCardRepository;     
       private CustomerInvoiceRepository invoiceRepository;
       
     public OrderRepositoryTest() {
@@ -63,7 +60,6 @@ public class OrderRepositoryTest {
         itemRepository = ctx.getBean(OrderItemRepository.class);
         customerRepository = ctx.getBean(CustomerRepository.class);
         creditCardRepository = ctx.getBean(CreditCardRepository.class);
-        addressRepository = ctx.getBean(CustomerAddressRepository.class);
         invoiceRepository = ctx.getBean(CustomerInvoiceRepository.class);
         
         CustomerName customerName = new CustomerName();
@@ -79,13 +75,9 @@ public class OrderRepositoryTest {
         demo.setGender("Female");
         demo.setRace("Black");
         
-        CustomerAddress address = new CustomerAddress.Builder("21 jump street")
-                                    .postalAddress("7100")
-                                    .build();
-     
-     addressRepository.save(address);
-     //id = address.getId();
-    // Assert.assertNotNull(address);
+        CustomerAddress address = new CustomerAddress();
+        address.setStreetAddress("21 jump street");
+        address.setPostalAddress("8000");
      
      CreditCard creditCard1 = new CreditCard.Builder("98765412308")
                 .balance(new BigDecimal(3000.00))
@@ -93,17 +85,11 @@ public class OrderRepositoryTest {
                 .nameOnCreditCard("Messi10")
                 .build();
         
-        creditCardRepository.save(creditCard1);
-        //id = creditCard.getId();
-        //Assert.assertNotNull(creditCard);
-        
         CreditCard creditCard2 = new CreditCard.Builder("789654123056")
                 .balance(new BigDecimal(4000.00))
                 .expiryDate(new Date())
                 .nameOnCreditCard("Neymar11")
                 .build();
-        
-        creditCardRepository.save(creditCard2);
         
         List<CreditCard> creditCards = new ArrayList<CreditCard>();
         creditCards.add(creditCard1);
@@ -115,34 +101,26 @@ public class OrderRepositoryTest {
                 .demographic(demo)
                 .customerAddress(address)
                 .creditCard(creditCards)
-                .build();
+                .build();  
         customerRepository.save(customer);
-       
         
         OrderItem item1 = new OrderItem.Builder(1)
                                 .build();
-        
-          itemRepository.save(item1);
           
           OrderItem item2 = new OrderItem.Builder(2)
                                 .build();
-        
-          itemRepository.save(item2);
           
-          List<OrderItem> items = new ArrayList<>();
+          List<OrderItem> items = new ArrayList<OrderItem>();
           items.add(item1);
           items.add(item2);
-          
-                  
+                   
         CustomerInvoice invoice = new CustomerInvoice.Builder("20583")
                                         .invoiceDate(new Date())
-                                        .orderAmount(new BigDecimal(150.00))
-                                        .invoiceStatus("Paid")
+                                        .orderAmount(new BigDecimal(5000.00))
+                                        .invoiceStatus("Not Paid")
                                         .build();
-        
-        invoiceRepository.save(invoice);
           
-        Order order = new Order.Builder(425)
+        Orders order = new Orders.Builder(425)
                 .customer(customer)
                 .orderDate(new Date())
                 .item(items)
@@ -161,38 +139,38 @@ public class OrderRepositoryTest {
     public void readOrder() {
         orderRepository = ctx.getBean(OrderRepository.class);
         
-       Order order = orderRepository.findOne(id);
-        Assert.assertEquals(order.getOrderDate(), new Date());
+       Orders order = orderRepository.findOne(id);
+        Assert.assertEquals(order.getOrderNumber(), 425);
 
     }
 
-    @Test(dependsOnMethods = "readOrder", enabled = true)
+    @Test(dependsOnMethods = "readOrder", enabled = false)
     private void updateOrder() {
        orderRepository = ctx.getBean(OrderRepository.class);
         
-       Order order = orderRepository.findOne(id);
+       Orders order = orderRepository.findOne(id);
        
-       Order updateOrder = new Order.Builder(425)
+       Orders updateOrder = new Orders.Builder(425)
                .order(order)
                .orderDate(new Date())
                .build();
 
         orderRepository.save(updateOrder);
-        Order newOrder= orderRepository.findOne(id);
+        Orders newOrder= orderRepository.findOne(id);
         Assert.assertEquals(newOrder.getOrderDate(), new Date());
 
     }
 
-    @Test(dependsOnMethods = "updateOrder", enabled = true)
+    @Test(dependsOnMethods = "updateOrder", enabled = false)
     private void deleteOrder() {
 
        orderRepository = ctx.getBean(OrderRepository.class);
        
-       Order order = orderRepository.findOne(id);
+       Orders order = orderRepository.findOne(id);
        
         orderRepository.delete(order);
        
-        Order deletedOrder = orderRepository.findOne(id);
+        Orders deletedOrder = orderRepository.findOne(id);
   
         Assert.assertNull(deletedOrder);
 

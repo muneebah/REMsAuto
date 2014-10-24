@@ -50,15 +50,7 @@ public class AutomobileRepositoryTest {
         Accessories accessoty = new Accessories();
         accessoty.setAccessoryNumber("102031");
         accessoty.setAccessoryName("Seats Cover");
-        accessoty.setUnitPrice(new BigDecimal(150.00));
-        
-         Review review = new Review();
-         review.setDescription("Great car, love it");
-         review.setRating(10);
-         
-         MarketingInformation marketingInformation = new MarketingInformation();
-         marketingInformation.setStatusOfInformation("COMPLETE");         
-         marketingInformation.setReview(review);
+        accessoty.setPrice(new BigDecimal(100.00));
         
         Automobile car = new Automobile.Builder("558 465 2CA")
                                     .autoName("BMW M3")
@@ -69,7 +61,6 @@ public class AutomobileRepositoryTest {
                                     .inventory(30)
                                     .accessory(accessoty)
                                     .colour(colour)
-                                    .marketingInformation(marketingInformation)
                                     .build();
      
      automobileRepository.save(car);
@@ -110,7 +101,7 @@ public class AutomobileRepositoryTest {
 
     }
 
-    @Test(dependsOnMethods = "updateAutomobile", enabled = true)
+    @Test(dependsOnMethods = "updateAutomobile", enabled = false)
     private void deleteAutomobile() {
 
        automobileRepository = ctx.getBean(AutomobileRepository.class);

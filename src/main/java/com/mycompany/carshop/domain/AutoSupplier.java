@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +33,7 @@ public class AutoSupplier implements Serializable {
     private String supplierAddress;
     private String supplierEmail;
     
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "autosupplier_id")
     private List<Automobile> automobiles = new ArrayList<Automobile>();
     
@@ -142,12 +141,36 @@ public class AutoSupplier implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
+    }
+
+    public void setSupplierNumber(String supplierNumber) {
+        this.supplierNumber = supplierNumber;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
+    public void setSupplierContact(String supplierContact) {
+        this.supplierContact = supplierContact;
+    }
+
+    public void setSupplierAddress(String supplierAddress) {
+        this.supplierAddress = supplierAddress;
+    }
+
+    public void setSupplierEmail(String supplierEmail) {
+        this.supplierEmail = supplierEmail;
+    }
+
+    public void setAutomobiles(List<Automobile> automobiles) {
+        this.automobiles = automobiles;
     }
 
     @Override
@@ -169,3 +192,4 @@ public class AutoSupplier implements Serializable {
     }
     
 }
+

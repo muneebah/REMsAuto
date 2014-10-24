@@ -7,7 +7,7 @@
 package com.mycompany.carshop.services.impl;
 
 import com.mycompany.carshop.domain.Automobile;
-import com.mycompany.carshop.domain.Order;
+import com.mycompany.carshop.domain.Orders;
 import com.mycompany.carshop.domain.OrderItem;
 import com.mycompany.carshop.repository.OrderRepository;
 import com.mycompany.carshop.services.OrderAmountService;
@@ -30,7 +30,7 @@ public class OrderAmountServiceImpl implements OrderAmountService{
     public BigDecimal calculateOrderAmount(Long order_Id) {
         double total = 0.00;
         
-        Order order = orderRepository.findOne(order_Id);
+        Orders order = orderRepository.findOne(order_Id);
         List<OrderItem> orderItems = order.getItem();
         
         for (OrderItem orderItem : orderItems) {

@@ -9,23 +9,12 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Elton
+ * @author Rhulani Baloyi
  */
 @Embeddable
 public class CustomerName implements Serializable{
-    private String lastName;
     private String firstName;
-
-    public CustomerName(){
-    }
-    
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    private String lastName;
 
     public String getFirstName() {
         return firstName;
@@ -33,5 +22,13 @@ public class CustomerName implements Serializable{
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

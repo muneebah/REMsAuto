@@ -22,9 +22,47 @@ public class Review implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String description;
     private int rating;
-
+   private String description;
+   
+   public Review(){}
+    
+    private Review(Builder builder) {
+        id = builder.id;
+        description = builder.description;
+        rating = builder.rating;
+    }
+    
+    public static class Builder{
+        private Long id;
+        private String description;
+        private int rating;
+           
+        public Builder(String description) {
+            this.description = description;
+           
+        }
+        public Builder rating(int value) {
+            this.rating = value;
+            return this;
+        }
+                public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+        
+        public Builder Review(Review review) {
+            this.id = review.getId();
+            description = review.getDescription();
+            rating = review.getRating();
+            return this;
+        }
+        
+        public Review build(){
+            return new Review(this);
+        }
+    }
+    
     public Long getId() {
         return id;
     }
@@ -75,3 +113,4 @@ public class Review implements Serializable {
     }
     
 }
+

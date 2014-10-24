@@ -8,7 +8,7 @@ package com.mycompany.carshop.services.impl;
 
 import com.mycompany.carshop.domain.Automobile;
 import com.mycompany.carshop.domain.AutomobileType;
-import com.mycompany.carshop.domain.Order;
+import com.mycompany.carshop.domain.Orders;
 import com.mycompany.carshop.domain.OrderItem;
 import com.mycompany.carshop.repository.AutomobileTypeRepository;
 import com.mycompany.carshop.repository.OrderRepository;
@@ -31,7 +31,7 @@ public class InventoryServiceImpl implements InventoryService{
 
     @Override
     public void processSale(Long orderID) {
-        Order order = orderRepository.findOne(orderID);
+        Orders order = orderRepository.findOne(orderID);
         List<OrderItem> orderItems = order.getItem();
         
         for(OrderItem orderItem : orderItems) {

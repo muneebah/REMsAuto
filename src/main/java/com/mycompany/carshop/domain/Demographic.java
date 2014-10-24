@@ -10,7 +10,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Elton
+ * @author Rhulani Baloyi
  */
 @Embeddable
 public class Demographic implements Serializable{
@@ -41,4 +41,5 @@ public class Demographic implements Serializable{
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+    
 }

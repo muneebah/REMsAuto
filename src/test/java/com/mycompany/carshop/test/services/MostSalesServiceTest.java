@@ -32,7 +32,7 @@ public class MostSalesServiceTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void testMostSalesService() {
         
         mostSalesService = ctx.getBean(MostSalesService.class);

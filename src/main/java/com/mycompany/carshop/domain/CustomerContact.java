@@ -9,10 +9,10 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Elton
+ * @author Rhulani Baloyi
  */
 @Embeddable
-public class CustomerContact implements Serializable{
+public class CustomerContact  implements Serializable{
     private String phoneNumber;
     private String cellNumber;
 
@@ -31,4 +31,6 @@ public class CustomerContact implements Serializable{
     public void setCellNumber(String cellNumber) {
         this.cellNumber = cellNumber;
     }
+
+    
 }

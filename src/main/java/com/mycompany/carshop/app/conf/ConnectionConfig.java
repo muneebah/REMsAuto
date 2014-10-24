@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.mycompany.carshop.app.conf;
 
 import javax.sql.DataSource;
@@ -18,7 +19,6 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 /**
  *
  * @author boniface
@@ -28,7 +28,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.mycompany.carshop.repository")
 public class ConnectionConfig {
-
     @Bean
     public DataSource dataSource() {
         BasicDataSource ds = new org.apache.commons.dbcp.BasicDataSource();
@@ -62,4 +61,5 @@ public class ConnectionConfig {
     public PlatformTransactionManager transactionManager() {
         return new JpaTransactionManager();
     }
+    
 }

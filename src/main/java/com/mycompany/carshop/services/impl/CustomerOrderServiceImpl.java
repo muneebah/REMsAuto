@@ -9,8 +9,9 @@ package com.mycompany.carshop.services.impl;
 import com.mycompany.carshop.app.exceptions.AutomobileNotFoundException;
 import com.mycompany.carshop.domain.Automobile;
 import com.mycompany.carshop.domain.AutomobileType;
-import com.mycompany.carshop.domain.Order;
+import com.mycompany.carshop.domain.Orders;
 import com.mycompany.carshop.domain.OrderItem;
+import com.mycompany.carshop.repository.AutomobileRepository;
 import com.mycompany.carshop.repository.AutomobileTypeRepository;
 import com.mycompany.carshop.repository.OrderRepository;
 import com.mycompany.carshop.services.CustomerOrderService;
@@ -29,17 +30,19 @@ public class CustomerOrderServiceImpl implements CustomerOrderService{
     @Autowired
     private AutomobileTypeRepository automobileTypeRepository;
     @Autowired
+    private AutomobileRepository automobileRepository;
+    @Autowired
     private OrderRepository orderRepository;
     
     @Override
-    public void orderAutomobile(Long Id, Map<String, String> automobileDetails, int quantity) {
-        AutomobileType automobileType = automobileTypeRepository.findOne(Id);
-        List<Automobile> automobiles = automobileType.getAutomobiles();
+    public void orderAutomobile(Long Id,Map<String, String> automobileDetails, int quantity) {
+        //AutomobileType automobileType = automobileTypeRepository.findOne(Id);
+        List<Automobile> automobiles = automobileRepository.findAll();
 
         for (Automobile automobile2 : automobiles) {
             if (automobileDetails.get("autoName").equals(automobile2.getAutoName())) {
                 
-                Order order = orderRepository.findOne(Id);
+                Orders order = orderRepository.findOne(Id);
                 List<OrderItem> orderItems = order.getItem();
                 
                 OrderItem orderItem = new OrderItem.Builder(quantity)

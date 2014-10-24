@@ -11,7 +11,6 @@ import com.mycompany.carshop.domain.CustomerContact;
 import com.mycompany.carshop.domain.CustomerName;
 import com.mycompany.carshop.domain.Demographic;
 import com.mycompany.carshop.repository.CreditCardRepository;
-import com.mycompany.carshop.repository.CustomerAddressRepository;
 import com.mycompany.carshop.repository.CustomerRepository;
 import com.mycompany.carshop.test.ConnectionConfigTest;
 import java.math.BigDecimal;
@@ -34,7 +33,6 @@ import org.testng.annotations.Test;
 public class CustomerRepositoryTest {
     private static ApplicationContext ctx;
     private Long id;
-    private CustomerAddressRepository addressRepository;
     private CustomerRepository customerRepository;
     private CreditCardRepository creditCardRepository;
     
@@ -47,12 +45,11 @@ public class CustomerRepositoryTest {
     @Test(enabled = true)
     public void createCustomer() {
         customerRepository = ctx.getBean(CustomerRepository.class);
-        addressRepository = ctx.getBean(CustomerAddressRepository.class);
         creditCardRepository = ctx.getBean(CreditCardRepository.class);
         
         CustomerName customerName = new CustomerName();
-        customerName.setFirstName("John");
-        customerName.setLastName("Doe");
+        customerName.setFirstName("Rhulani");
+        customerName.setLastName("Baloyi");
         
         CustomerContact contact = new CustomerContact();
         contact.setCellNumber("0799414940");
@@ -63,31 +60,25 @@ public class CustomerRepositoryTest {
         demo.setGender("Female");
         demo.setRace("White");
         
-        CustomerAddress address = new CustomerAddress.Builder("17 summer street")
-                                    .postalAddress("7100")
-                                    .build();
+        CustomerAddress address = new CustomerAddress();
+        address.setStreetAddress("17 summer street");
+        address.setPostalAddress("7100");
      
-     addressRepository.save(address);
-     //id = address.getId();
-    // Assert.assertNotNull(address);
-     
-     CreditCard creditCard1 = new CreditCard.Builder("98765412308")
+        CreditCard creditCard1 = new CreditCard.Builder("98765412308")
                 .balance(new BigDecimal(3000.00))
                 .expiryDate(new Date())
                 .nameOnCreditCard("Messi")
                 .build();
         
-        creditCardRepository.save(creditCard1);
-        //id = creditCard.getId();
-        //Assert.assertNotNull(creditCard);
-        
+        //creditCardRepository.save(creditCard1);
+                
         CreditCard creditCard2 = new CreditCard.Builder("789654123056")
                 .balance(new BigDecimal(4000.00))
                 .expiryDate(new Date())
                 .nameOnCreditCard("Neymar")
                 .build();
         
-        creditCardRepository.save(creditCard2);
+        //creditCardRepository.save(creditCard2);
         
         List<CreditCard> creditCards = new ArrayList<CreditCard>();
         creditCards.add(creditCard1);
@@ -118,8 +109,8 @@ public class CustomerRepositoryTest {
         customerRepository = ctx.getBean(CustomerRepository.class);
         
         CustomerName customerName = new CustomerName();
-        customerName.setFirstName("Joe");
-        customerName.setLastName("Doe");
+        customerName.setFirstName("Lionel");
+        customerName.setLastName("Salvatore");
         
         
         Customer customer = customerRepository.findOne(id);
@@ -131,11 +122,11 @@ public class CustomerRepositoryTest {
         
         Customer newCustomer = customerRepository.findOne(id);
         CustomerName updateName = newCustomer.getCustomerName();
-        Assert.assertEquals(updateName.getFirstName(), "Joe");
+        Assert.assertEquals(updateName.getFirstName(), "Lionel");
 
     }
 
-    @Test(dependsOnMethods = "updateCustomer", enabled = true)
+    @Test(dependsOnMethods = "updateCustomer", enabled = false)
     private void deleteCustomer() {
 
         customerRepository = ctx.getBean(CustomerRepository.class);

@@ -47,13 +47,15 @@ public class CustomerInfoServiceTest {
         
         Customer customer = customers.get(0);
         String name = customerService.getFullName(customer.getId());
-        Assert.assertEquals("Joe" + "Doe",name);
+        Assert.assertEquals("Joe Doe",name);
         
         String address = customerService.getStreetAddress(customer.getId());
         Assert.assertEquals("17 summer street",address);
         
         String cell = customerService.getCellNumber(customer.getId());
         Assert.assertEquals("0799414940",cell);
+        
+        System.out.println("Name : " + name + "\nAddress : " + address + "\nCell Number : " + cell);
         
     }
 

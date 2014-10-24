@@ -27,6 +27,7 @@ public class AutomobileType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     private String autoType;
     
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
@@ -121,3 +122,4 @@ public class AutomobileType implements Serializable {
     }
     
 }
+

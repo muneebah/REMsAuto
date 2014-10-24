@@ -7,17 +7,11 @@ package com.mycompany.carshop.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
+import javax.persistence.*;
 
 /**
  *
- * @author Elton
+ * @author Rhulani Baloyi
  */
 @Entity
 public class CustomerInvoice implements Serializable {
@@ -30,11 +24,11 @@ public class CustomerInvoice implements Serializable {
     private Date invoiceDate;
     private BigDecimal orderAmount;
     private String invoiceStatus;
-    @OneToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
     
-    public CustomerInvoice(){
+    @OneToOne
+    private Orders order;
+
+   public CustomerInvoice(){
     }
     
     private CustomerInvoice(CustomerInvoice.Builder builder) {
@@ -52,7 +46,7 @@ public class CustomerInvoice implements Serializable {
         private BigDecimal orderAmount;
         private String invoiceNumber;
         private String invoiceStatus;
-        Order order;
+        Orders order;
         
         public Builder(String invoiceNumber) {
             this.invoiceNumber = invoiceNumber;
@@ -62,7 +56,7 @@ public class CustomerInvoice implements Serializable {
             this.id = id;
             return this;
         }
-        public Builder order(Order value)
+        public Builder order(Orders value)
         {
             this.order = value;
             return this;
@@ -115,7 +109,7 @@ public class CustomerInvoice implements Serializable {
         return invoiceStatus;
     }
 
-    public Order getOrder() {
+    public Orders getOrder() {
         return order;
     }
 

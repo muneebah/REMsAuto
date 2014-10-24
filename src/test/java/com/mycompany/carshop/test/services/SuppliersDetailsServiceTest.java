@@ -46,7 +46,7 @@ public class SuppliersDetailsServiceTest {
         AutoSupplier supplier = suppliers.get(0);
         AutoSupplier supplierInfo = supplierRepository.getSupplierInformation(supplier.getId());
         Assert.assertNotNull(supplierInfo);
-        
+       
     }
     
     @BeforeClass
